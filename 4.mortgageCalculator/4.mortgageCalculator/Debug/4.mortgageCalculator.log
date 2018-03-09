@@ -1,3 +1,5 @@
 ﻿  4.mortgageCalculator.cpp
-d:\documents\effcpp\assignment2\4.mortgagecalculator\4.mortgagecalculator\4.mortgagecalculator.cpp(29): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+d:\documents\effcpp\assignment2\4.mortgagecalculator\4.mortgagecalculator\4.mortgagecalculator.cpp(30): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+d:\documents\effcpp\assignment2\4.mortgagecalculator\4.mortgagecalculator\4.mortgagecalculator.cpp(45): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+d:\documents\effcpp\assignment2\4.mortgagecalculator\4.mortgagecalculator\4.mortgagecalculator.cpp(45): warning C4244: 'initializing': conversion from 'double' to 'const int', possible loss of data
   4.mortgageCalculator.vcxproj -> D:\Documents\EffCpp\Assignment2\4.mortgageCalculator\Debug\4.mortgageCalculator.exe
