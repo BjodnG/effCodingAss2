@@ -26,6 +26,7 @@ private:
 	Genre genre;
 
 public:
+	Book(string const &ISBN, string const &title, string const &author, Genre genre);
 	void checkInOutBook(bool checkOut);
 	bool getCheckedIn();
 
@@ -49,6 +50,7 @@ private:
 	int amountOfFees;
 
 public:
+	Patron(string firstName,string lastName, int cardNumber, int amountOfFees);
 	void printInfo();
 	bool hasFees();
 	void setFees();

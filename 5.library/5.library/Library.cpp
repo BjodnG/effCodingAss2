@@ -47,10 +47,15 @@ private:
 	string title;
 	string author;
 	//ctime date;
-	bool checkedOut;
+	bool checkedOut = false;
 	Genre genre;
 
 public:
+	Book(string const &ISBN, string const &title, string const &author, Genre genre) {
+		this->ISBN = ISBN;
+		this->title = title;
+		this->author = author;
+	}
 	void checkInOutBook(bool checkOut) {
 		this->checkedOut = checkOut;
 	}
@@ -78,9 +83,14 @@ private:
 	string firstName;
 	string lastName;
 	int cardNumber;
-	int amountOfFees;
+	int amountOfFees = 0;
 
 public:
+	Patron(string firstName, string lastName, int cardNumber) {
+		this->firstName = firstName;
+		this->lastName = lastName;
+		this->cardNumber = cardNumber;
+	}
 	void printInfo();
 	bool hasFees() {
 		return (this->amountOfFees > 0) ? true : false;
