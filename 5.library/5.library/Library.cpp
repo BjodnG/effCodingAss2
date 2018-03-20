@@ -1,108 +1,103 @@
+#include "stdafx.h"
+#include "Library.h"
 #include <vector>
 #include <string>
 #include <ctime>
 #include <iostream>
+#include <ctype.h>
 using namespace std;
 
-class Library {
-public:
-	vector<Book> books;
-	vector<Patron> patrons;
-	vector<Transaction> transactions;
-
-	void addBook(Book newBook) {
+ void Library::addBook(string const &ISBN, string const &title, string const &author, Genre genre) {
+	try {
+		Book newBook(ISBN, title, author, genre);
+		cout << "ISBN of new book is: " << newBook.getISBN() << endl;
 		this->books.push_back(newBook);
-	}
-	void addPatron(Patron newPatron) {
-		this->patrons.push_back(newPatron);
-	}
-	void checkInOutBook(string ISBN, bool checkOut) {
 
-		for (Book book : this->books) {
-			if (book.getISBN() == ISBN) {
-				book.checkInOutBook(checkOut);
-			}
-			else {
-				cout << "Can't find book." << endl;
-			}
+	}
+	catch (exception e){
+		cout << e.what() << endl;
+	}
+}
+void Library::addPatron(Patron newPatron) {
+	this->patrons.push_back(newPatron);
+}
+void Library::checkInOutBook(string ISBN, bool checkOut) {
+
+	for (Book book : this->books) {
+		if (book.getISBN() == ISBN) {
+			book.checkInOutBook(checkOut);
 		}
-
-	}
-	vector<Patron> findPatronsWithFees() {
-
-		vector <Patron> patronsWithFee;
-
-		for (Patron patron : this->patrons) {
-			if (patron.hasFees())
-				patronsWithFee.push_back(patron);
+		else {
+			cout << "Can't find book." << endl;
 		}
-		return patronsWithFee;
 	}
 
-};
+}
+vector<Patron> Library::findPatronsWithFees() {
 
-class Book {
-private:
-	string ISBN;
-	string title;
-	string author;
-	//ctime date;
-	bool checkedOut = false;
-	Genre genre;
+	vector <Patron> patronsWithFee;
 
-public:
-	Book(string const &ISBN, string const &title, string const &author, Genre genre) {
-		this->ISBN = ISBN;
-		this->title = title;
-		this->author = author;
+	for (Patron patron : this->patrons) {
+		if (patron.hasFees())
+			patronsWithFee.push_back(patron);
 	}
-	void checkInOutBook(bool checkOut) {
-		this->checkedOut = checkOut;
+	return patronsWithFee;
+}
+
+
+Book::Book(string const &ISBN, string const &title, string const &author, Genre genre) {
+		if (validateISBNinput(ISBN)) {
+			this->ISBN = ISBN;
+			this->title = title;
+			this->author = author;
+		}
+		else {
+			cout << "Invalid ISBN" << endl;
+			throw exception();
+			//this->~Book();
+		}
 	}
-	bool getCheckedOut() {
-		return this->checkedOut;
-	}
+Book::~Book() {};
+bool Book::operator==(Book otherBook) {
+	
+	return (this->ISBN == otherBook.getISBN()) ? true : false;
+}
+void Book::checkInOutBook(bool checkOut) {
+	this->checkedOut = checkOut;
+}
+bool Book::isCheckedOut() {
+	return this->checkedOut;
+}
+void Book::printInfo() {
 
-	void printInfo();
-	string getISBN() {
-		return this->ISBN;
-	}
+}
+string Book::getISBN() {
+	return this->ISBN;
+}
+bool Book::validateISBNinput(string const &ISBN) {
+	cout << ISBN << endl;
+	
+	if (ISBN.length() != 4) return false;
+	for (int i = 0; i < 3; i++)
+		if (!isdigit(ISBN.at(i))) return false;
+	if (!isdigit(ISBN.at(3)) && !isalpha(ISBN.at(3))) return false;
+	
+	return true;
+}
 
-};
 
-enum Genre {
-	fiction,
-	nonfiction,
-	periodical,
-	biography,
-	children
-};
+Patron::Patron(string firstName, string lastName, int cardNumber) {
+	this->firstName = firstName;
+	this->lastName = lastName;
+	this->cardNumber = cardNumber;
+}
+void Patron::printInfo() {
 
-class Patron {
-private:
-	string firstName;
-	string lastName;
-	int cardNumber;
-	int amountOfFees = 0;
+}
+bool Patron::hasFees() {
+	return (this->amountOfFees > 0) ? true : false;
+}
+void Patron::addFee() {
+	this->amountOfFees++;
+}
 
-public:
-	Patron(string firstName, string lastName, int cardNumber) {
-		this->firstName = firstName;
-		this->lastName = lastName;
-		this->cardNumber = cardNumber;
-	}
-	void printInfo();
-	bool hasFees() {
-		return (this->amountOfFees > 0) ? true : false;
-	}
-	void addFee() {
-		this->amountOfFees++;
-	}
-
-};
-
-struct Transaction {
-	Book book;
-	Patron patron;
-	// DATE	
-};

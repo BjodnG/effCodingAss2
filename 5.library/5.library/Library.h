@@ -1,19 +1,16 @@
 #pragma once
+#include "stdafx.h"
 #include <vector>
 #include <string>
 #include <ctime>
 using namespace std;
-class Library {
-public:
-	vector<Book> books;
-	vector<Patron> patrons;
-	vector<Transaction> transactions;
 
-	void addBook(Book newBook);
-	void addPatron(Patron newPatron);
-	void checkInOutBook(string ISBN);
-	vector<Patron> findPatronsWithFees();
-	
+enum Genre {
+	fiction,
+	nonfiction,
+	periodical,
+	biography,
+	children
 };
 
 class Book {
@@ -25,21 +22,17 @@ private:
 	bool checkedOut;
 	Genre genre;
 
+	bool validateISBNinput(string const &ISBN);
+
 public:
 	Book(string const &ISBN, string const &title, string const &author, Genre genre);
+	~Book();
+	bool operator==(Book otherBook);
 	void checkInOutBook(bool checkOut);
-	bool getCheckedIn();
+	bool isCheckedOut();
 
 	void printInfo();
 	string getISBN();
-};
-
-enum Genre {
-	fiction,
-	nonfiction,
-	periodical,
-	biography,
-	children
 };
 
 class Patron {
@@ -50,10 +43,10 @@ private:
 	int amountOfFees;
 
 public:
-	Patron(string firstName,string lastName, int cardNumber, int amountOfFees);
+	Patron(string firstName, string lastName, int cardNumber);
 	void printInfo();
 	bool hasFees();
-	void setFees();
+	void addFee();
 
 };
 
@@ -61,4 +54,17 @@ struct Transaction {
 	Book book;
 	Patron patron;
 	// DATE
+};
+
+class Library {
+public:
+	vector<Book> books;
+	vector<Patron> patrons;
+	vector<Transaction> transactions;
+
+	void addBook(string const &ISBN, string const &title, string const &author, Genre genre);
+	void addPatron(Patron newPatron);
+	void checkInOutBook(string ISBN, bool checkOut);
+	vector<Patron> findPatronsWithFees();
+	
 };
