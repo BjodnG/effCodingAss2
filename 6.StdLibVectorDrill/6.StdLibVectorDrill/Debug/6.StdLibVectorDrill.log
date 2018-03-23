@@ -1,2 +1,3 @@
 ﻿  6.StdLibVectorDrill.cpp
-  6.StdLibVectorDrill.vcxproj -> C:\Users\bjorn\Documents\CppLok\effCodingAss2\6.StdLibVectorDrill\Debug\6.StdLibVectorDrill.exe
+d:\documents\effcpp\assignment2\6.stdlibvectordrill\6.stdlibvectordrill\6.stdlibvectordrill.cpp(16): warning C4018: '<': signed/unsigned mismatch
+  6.StdLibVectorDrill.vcxproj -> D:\Documents\EffCpp\Assignment2\6.StdLibVectorDrill\Debug\6.StdLibVectorDrill.exe
